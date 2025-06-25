@@ -1,5 +1,6 @@
-const { callGPT } = require("../services/openaiService");
-
+//const { callGPT } = require("../services/openaiService");
+const { callGenerateTextFromSimplePrompt } = require("../services/openaiTextAndPromptService");
+const { callGenerateTextWithInstructions } = require("../services/openaiTextAndPromptService");
 
 
 const system = `You are a chatbot having a conversation so please talk concisely and human like. You have access to the previous chat
@@ -17,8 +18,11 @@ async function handleMessage(req, res) {
     return res.status(400).json({ error: "Empty message" });
   }
 
-  const response = await callGPT(content, system, chatLog);
+  //const response = await callGPT(content, system, chatLog);
 
+  //const response = await callGenerateTextFromSimplePrompt(content, system, chatLog);
+  const response = await callGenerateTextWithInstructions(content, system, chatLog);
+  
   chatLog += "User: " + content + "\n";
   chatLog += "Chat Bot: " + response + "\n";
 
